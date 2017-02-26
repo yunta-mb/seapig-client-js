@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Seapig Viewer</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<script src="http://underscorejs.org/underscore-min.js"></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+
+	<script language="javascript">
+/*!
+ * https://github.com/Starcounter-Jack/JSON-Patch
+ * json-patch-duplex.js version: 1.1.6
+ * (c) 2013 Joachim Wester
+ * MIT license
+ */
+var jsonpatch;if(function(a){function b(a,c){switch(typeof a){case"undefined":case"boolean":case"string":case"number":return a===c;case"object":if(null===a)return null===c;if(z(a)){if(!z(c)||a.length!==c.length)return!1;for(var d=0,e=a.length;d<e;d++)if(!b(a[d],c[d]))return!1;return!0}var f=s(c),g=f.length;if(s(a).length!==g)return!1;for(var d=0;d<g;d++)if(!b(a[d],c[d]))return!1;return!0;default:return!1}}function c(a){return a.indexOf("/")===-1&&a.indexOf("~")===-1?a:a.replace(/~/g,"~0").replace(/\//g,"~1")}function d(a){for(var b=0,c=w.length;b<c;b++)if(w[b].obj===a)return w[b]}function e(a,b){for(var c=0,d=a.observers.length;c<d;c++)if(a.observers[c].callback===b)return a.observers[c].observer}function f(a,b){for(var c=0,d=a.observers.length;c<d;c++)if(a.observers[c].observer===b)return void a.observers.splice(c,1)}function g(a,b){b.unobserve()}function h(a){switch(typeof a){case"object":return JSON.parse(JSON.stringify(a));case"undefined":return null;default:return a}}function i(a,b){var c,g=[],i=d(a);if(i?c=e(i,b):(i=new x(a),w.push(i)),c)return c;if(c={},i.value=h(a),b){c.callback=b,c.next=null;var k=function(){j(c)},l=function(){clearTimeout(c.next),c.next=setTimeout(k)};"undefined"!=typeof window&&(window.addEventListener?(window.addEventListener("mouseup",l),window.addEventListener("keyup",l),window.addEventListener("mousedown",l),window.addEventListener("keydown",l),window.addEventListener("change",l)):(document.documentElement.attachEvent("onmouseup",l),document.documentElement.attachEvent("onkeyup",l),document.documentElement.attachEvent("onmousedown",l),document.documentElement.attachEvent("onkeydown",l),document.documentElement.attachEvent("onchange",l)))}return c.patches=g,c.object=a,c.unobserve=function(){j(c),clearTimeout(c.next),f(i,c),"undefined"!=typeof window&&(window.removeEventListener?(window.removeEventListener("mouseup",l),window.removeEventListener("keyup",l),window.removeEventListener("mousedown",l),window.removeEventListener("keydown",l)):(document.documentElement.detachEvent("onmouseup",l),document.documentElement.detachEvent("onkeyup",l),document.documentElement.detachEvent("onmousedown",l),document.documentElement.detachEvent("onkeydown",l)))},i.observers.push(new y(b,c)),c}function j(a){for(var b,c=0,d=w.length;c<d;c++)if(w[c].obj===a.object){b=w[c];break}k(b.value,a.object,a.patches,""),a.patches.length&&m(b.value,a.patches);var e=a.patches;return e.length>0&&(a.patches=[],a.callback&&a.callback(e)),e}function k(a,b,d,e){"function"==typeof b.toJSON&&(b=b.toJSON());for(var f=s(b),g=s(a),i=!1,j=!1,l=g.length-1;l>=0;l--){var m=g[l],n=a[m];if(!b.hasOwnProperty(m)||void 0===b[m]&&void 0!==n&&z(b)===!1)d.push({op:"remove",path:e+"/"+c(m)}),j=!0;else{var o=b[m];"object"==typeof n&&null!=n&&"object"==typeof o&&null!=o?k(n,o,d,e+"/"+c(m)):n!==o&&(i=!0,d.push({op:"replace",path:e+"/"+c(m),value:h(o)}))}}if(j||f.length!=g.length)for(var l=0;l<f.length;l++){var m=f[l];a.hasOwnProperty(m)||void 0===b[m]||d.push({op:"add",path:e+"/"+c(m),value:h(b[m])})}}function l(a){for(var b,c=0,d=a.length;c<d;){b=a.charCodeAt(c);{if(!(b>=48&&b<=57))return!1;c++}}return!0}function m(a,b,c){for(var d,e,f=[],g=0,h=b.length;g<h;){d=b[g],g++;for(var i=d.path||"",j=i.split("/"),k=a,m=1,n=j.length,o=void 0;;){if(e=j[m],c&&void 0===o&&(void 0===k[e]?o=j.slice(0,m).join("/"):m==n-1&&(o=d.path),void 0!==o&&this.validator(d,g-1,a,o)),m++,void 0===e&&m>=n){f.push(v[d.op].call(d,k,e,a));break}if(z(k)){if("-"===e)e=k.length;else{if(c&&!l(e))throw new A("Expected an unsigned base-10 integer value, making the new referenced value the array element with the zero-based index","OPERATION_PATH_ILLEGAL_ARRAY_INDEX",g-1,d.path,d);e=parseInt(e,10)}if(m>=n){if(c&&"add"===d.op&&e>k.length)throw new A("The specified index MUST NOT be greater than the number of elements in the array","OPERATION_VALUE_OUT_OF_BOUNDS",g-1,d.path,d);f.push(u[d.op].call(d,k,e,a));break}}else if(e&&e.indexOf("~")!=-1&&(e=e.replace(/~1/g,"/").replace(/~0/g,"~")),m>=n){f.push(t[d.op].call(d,k,e,a));break}k=k[e]}}return f}function n(a,b){var c=[];return k(a,b,c,""),c}function o(a,b){function c(){this.constructor=a}for(var d in b)b.hasOwnProperty(d)&&(a[d]=b[d]);a.prototype=null===b?Object.create(b):(c.prototype=b.prototype,new c)}function p(a){if(void 0===a)return!0;if("array"==typeof a||"object"==typeof a)for(var b in a)if(p(a[b]))return!0;return!1}function q(b,c,d,e){if("object"!=typeof b||null===b||z(b))throw new A("Operation is not an object","OPERATION_NOT_AN_OBJECT",c,b,d);if(!t[b.op])throw new A("Operation `op` property is not one of operations defined in RFC-6902","OPERATION_OP_INVALID",c,b,d);if("string"!=typeof b.path)throw new A("Operation `path` property is not a string","OPERATION_PATH_INVALID",c,b,d);if(0!==b.path.indexOf("/")&&b.path.length>0)throw new A('Operation `path` property must start with "/"',"OPERATION_PATH_INVALID",c,b,d);if(("move"===b.op||"copy"===b.op)&&"string"!=typeof b.from)throw new A("Operation `from` property is not present (applicable in `move` and `copy` operations)","OPERATION_FROM_REQUIRED",c,b,d);if(("add"===b.op||"replace"===b.op||"test"===b.op)&&void 0===b.value)throw new A("Operation `value` property is not present (applicable in `add`, `replace` and `test` operations)","OPERATION_VALUE_REQUIRED",c,b,d);if(("add"===b.op||"replace"===b.op||"test"===b.op)&&p(b.value))throw new A("Operation `value` property is not present (applicable in `add`, `replace` and `test` operations)","OPERATION_VALUE_CANNOT_CONTAIN_UNDEFINED",c,b,d);if(d)if("add"==b.op){var f=b.path.split("/").length,g=e.split("/").length;if(f!==g+1&&f!==g)throw new A("Cannot perform an `add` operation at the desired path","OPERATION_PATH_CANNOT_ADD",c,b,d)}else if("replace"===b.op||"remove"===b.op||"_get"===b.op){if(b.path!==e)throw new A("Cannot perform the operation at a path that does not exist","OPERATION_PATH_UNRESOLVABLE",c,b,d)}else if("move"===b.op||"copy"===b.op){var h={op:"_get",path:b.from,value:void 0},i=a.validate([h],d);if(i&&"OPERATION_PATH_UNRESOLVABLE"===i.name)throw new A("Cannot perform the operation from a path that does not exist","OPERATION_FROM_UNRESOLVABLE",c,b,d)}}function r(a,b){try{if(!z(a))throw new A("Patch sequence must be an array","SEQUENCE_NOT_AN_ARRAY");if(b)b=JSON.parse(JSON.stringify(b)),m.call(this,b,a,!0);else for(var c=0;c<a.length;c++)this.validator(a[c],c)}catch(a){if(a instanceof A)return a;throw a}}var s=function(a){if(z(a)){for(var b=new Array(a.length),c=0;c<b.length;c++)b[c]=""+c;return b}if(Object.keys)return Object.keys(a);var b=[];for(var d in a)a.hasOwnProperty(d)&&b.push(d);return b},t={add:function(a,b){a[b]=this.value},remove:function(a,b){var c=a[b];return delete a[b],c},replace:function(a,b){var c=a[b];return a[b]=this.value,c},move:function(a,b,c){var d={op:"_get",path:this.path};m(c,[d]);var e=void 0===d.value?void 0:JSON.parse(JSON.stringify(d.value)),f={op:"_get",path:this.from};return m(c,[f]),m(c,[{op:"remove",path:this.from}]),m(c,[{op:"add",path:this.path,value:f.value}]),e},copy:function(a,b,c){var d={op:"_get",path:this.from};m(c,[d]),m(c,[{op:"add",path:this.path,value:d.value}])},test:function(a,c){return b(a[c],this.value)},_get:function(a,b){this.value=a[b]}},u={add:function(a,b){return a.splice(b,0,this.value),b},remove:function(a,b){var c=a.splice(b,1);return c[0]},replace:function(a,b){var c=a[b];return a[b]=this.value,c},move:t.move,copy:t.copy,test:t.test,_get:t._get},v={add:function(a){v.remove.call(this,a);for(var b in this.value)this.value.hasOwnProperty(b)&&(a[b]=this.value[b])},remove:function(a){var b={};for(var c in a)a.hasOwnProperty(c)&&(b[c]=a[c],t.remove.call(this,a,c));return b},replace:function(a){var b=m(a,[{op:"remove",path:this.path}]);return m(a,[{op:"add",path:this.path,value:this.value}]),b[0]},move:t.move,copy:t.copy,test:function(a){return JSON.stringify(a)===JSON.stringify(this.value)},_get:function(a){this.value=a}},w=[],x=function(){function a(a){this.observers=[],this.obj=a}return a}(),y=function(){function a(a,b){this.callback=a,this.observer=b}return a}();a.unobserve=g,a.observe=i,a.generate=j;var z;z=Array.isArray?Array.isArray:function(a){return a.push&&"number"==typeof a.length},a.apply=m,a.compare=n;var A=function(a){function b(b,c,d,e,f){a.call(this,b),this.message=b,this.name=c,this.index=d,this.operation=e,this.tree=f}return o(b,a),b}(Error);a.JsonPatchError=A,a.validator=q,a.validate=r}(jsonpatch||(jsonpatch={})),"undefined"!=typeof exports)exports.apply=jsonpatch.apply,exports.observe=jsonpatch.observe,exports.unobserve=jsonpatch.unobserve,exports.generate=jsonpatch.generate,exports.compare=jsonpatch.compare,exports.validate=jsonpatch.validate,exports.validator=jsonpatch.validator,exports.JsonPatchError=jsonpatch.JsonPatchError;else var exports={},isBrowser=!0;Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=jsonpatch,isBrowser&&(exports=void 0);;
+new function(){function w(a,d,h,f,g,l){return{tag:a,key:d,attrs:h,children:f,text:g,dom:l,domSize:void 0,state:{},events:void 0,instance:void 0,skip:!1}}function z(a){if(null==a||"string"!==typeof a&&"function"!==typeof a&&"function"!==typeof a.view)throw Error("The selector must be either a string or a component.");if("string"===typeof a&&void 0===H[a]){for(var d,h,f=[],g={};d=O.exec(a);){var l=d[1],k=d[2];""===l&&""!==k?h=k:"#"===l?g.id=k:"."===l?f.push(k):"["===d[3][0]&&((l=d[6])&&(l=l.replace(/\\(["'])/g,
+"$1").replace(/\\\\/g,"\\")),"class"===d[4]?f.push(l):g[d[4]]=l||!0)}0<f.length&&(g.className=f.join(" "));H[a]=function(a,d){var l=!1,c,f,n=a.className||a["class"],m;for(m in g)a[m]=g[m];void 0!==n&&(void 0!==a["class"]&&(a["class"]=void 0,a.className=n),void 0!==g.className&&(a.className=g.className+" "+n));for(m in a)if("key"!==m){l=!0;break}Array.isArray(d)&&1==d.length&&null!=d[0]&&"#"===d[0].tag?f=d[0].children:c=d;return w(h||"div",a.key,l?a:void 0,c,f,void 0)}}var m;null==arguments[1]||"object"===
+typeof arguments[1]&&void 0===arguments[1].tag&&!Array.isArray(arguments[1])?(m=arguments[1],f=2):f=1;if(arguments.length===f+1)d=Array.isArray(arguments[f])?arguments[f]:[arguments[f]];else for(d=[];f<arguments.length;f++)d.push(arguments[f]);return"string"===typeof a?H[a](m||{},w.normalizeChildren(d)):w(a,m&&m.key,m||{},w.normalizeChildren(d),void 0,void 0)}function P(a){var d=0,h=null,f="function"===typeof requestAnimationFrame?requestAnimationFrame:setTimeout;return function(){var g=Date.now();
+0===d||16<=g-d?(d=g,a()):null===h&&(h=f(function(){h=null;a();d=Date.now()},16-(g-d)))}}w.normalize=function(a){return Array.isArray(a)?w("[",void 0,void 0,w.normalizeChildren(a),void 0,void 0):null!=a&&"object"!==typeof a?w("#",void 0,void 0,!1===a?"":a,void 0,void 0):a};w.normalizeChildren=function(a){for(var d=0;d<a.length;d++)a[d]=w.normalize(a[d]);return a};var O=/(?:(^|#|\.)([^#\.\[\]]+))|(\[(.+?)(?:\s*=\s*("|'|)((?:\\["'\]]|.)*?)\5)?\])/g,H={};z.trust=function(a){null==a&&(a="");return w("<",
+void 0,void 0,a,void 0,void 0)};z.fragment=function(a,d){return w("[",a.key,a,w.normalizeChildren(d),void 0,void 0)};var v=function(a){function d(a,c){return function y(d){var k;try{if(!c||null==d||"object"!==typeof d&&"function"!==typeof d||"function"!==typeof(k=d.then))t(function(){c||0!==a.length||console.error("Possible unhandled promise rejection:",d);for(var f=0;f<a.length;f++)a[f](d);g.length=0;l.length=0;n.state=c;n.retry=function(){y(d)}});else{if(d===f)throw new TypeError("Promise can't be resolved w/ itself");
+h(k.bind(d))}}catch(Q){m(Q)}}}function h(a){function c(c){return function(a){0<d++||c(a)}}var d=0,f=c(m);try{a(c(k),f)}catch(D){f(D)}}if(!(this instanceof v))throw Error("Promise must be called with `new`");if("function"!==typeof a)throw new TypeError("executor must be a function");var f=this,g=[],l=[],k=d(g,!0),m=d(l,!1),n=f._instance={resolvers:g,rejectors:l},t="function"===typeof setImmediate?setImmediate:setTimeout;h(a)};v.prototype.then=function(a,d){function h(a,d,h,k){d.push(function(c){if("function"!==
+typeof a)h(c);else try{g(a(c))}catch(A){l&&l(A)}});"function"===typeof f.retry&&k===f.state&&f.retry()}var f=this._instance,g,l,k=new v(function(a,d){g=a;l=d});h(a,f.resolvers,g,!0);h(d,f.rejectors,l,!1);return k};v.prototype["catch"]=function(a){return this.then(null,a)};v.resolve=function(a){return a instanceof v?a:new v(function(d){d(a)})};v.reject=function(a){return new v(function(d,h){h(a)})};v.all=function(a){return new v(function(d,h){var f=a.length,g=0,l=[];if(0===a.length)d([]);else for(var k=
+0;k<a.length;k++)(function(k){function n(a){g++;l[k]=a;g===f&&d(l)}null==a[k]||"object"!==typeof a[k]&&"function"!==typeof a[k]||"function"!==typeof a[k].then?n(a[k]):a[k].then(n,h)})(k)})};v.race=function(a){return new v(function(d,h){for(var f=0;f<a.length;f++)a[f].then(d,h)})};"undefined"!==typeof window?("undefined"===typeof window.Promise&&(window.Promise=v),v=window.Promise):"undefined"!==typeof global&&("undefined"===typeof global.Promise&&(global.Promise=v),v=global.Promise);var F=function(a){function d(a,
+f){if(Array.isArray(f))for(var g=0;g<f.length;g++)d(a+"["+g+"]",f[g]);else if("[object Object]"===Object.prototype.toString.call(f))for(g in f)d(a+"["+g+"]",f[g]);else h.push(encodeURIComponent(a)+(null!=f&&""!==f?"="+encodeURIComponent(f):""))}if("[object Object]"!==Object.prototype.toString.call(a))return"";var h=[],f;for(f in a)d(f,a[f]);return h.join("&")},K=function(a,d){function h(){function c(){0===--a&&"function"===typeof x&&x()}var a=0;return function D(d){var f=d.then;d.then=function(){a++;
+var g=f.apply(d,arguments);g.then(c,function(d){c();if(0===a)throw d;});return D(g)};return d}}function f(c,a){if("string"===typeof c){var d=c;c=a||{};null==c.url&&(c.url=d)}return c}function g(c,a){if(null==a)return c;for(var d=c.match(/:[^\/]+/gi)||[],f=0;f<d.length;f++){var g=d[f].slice(1);null!=a[g]&&(c=c.replace(d[f],a[g]))}return c}function l(c,a){var d=F(a);if(""!==d){var f=0>c.indexOf("?")?"?":"&";c+=f+d}return c}function k(c){try{return""!==c?JSON.parse(c):null}catch(A){throw Error(c);}}
+function m(c){return c.responseText}function n(c,a){if("function"===typeof c)if(Array.isArray(a))for(var d=0;d<a.length;d++)a[d]=new c(a[d]);else return new c(a);return a}var t=0,x;return{request:function(c,x){var t=h();c=f(c,x);var A=new d(function(d,f){null==c.method&&(c.method="GET");c.method=c.method.toUpperCase();var h="boolean"===typeof c.useBody?c.useBody:"GET"!==c.method&&"TRACE"!==c.method;"function"!==typeof c.serialize&&(c.serialize="undefined"!==typeof FormData&&c.data instanceof FormData?
+function(a){return a}:JSON.stringify);"function"!==typeof c.deserialize&&(c.deserialize=k);"function"!==typeof c.extract&&(c.extract=m);c.url=g(c.url,c.data);h?c.data=c.serialize(c.data):c.url=l(c.url,c.data);var p=new a.XMLHttpRequest;p.open(c.method,c.url,"boolean"===typeof c.async?c.async:!0,"string"===typeof c.user?c.user:void 0,"string"===typeof c.password?c.password:void 0);c.serialize===JSON.stringify&&h&&p.setRequestHeader("Content-Type","application/json; charset=utf-8");c.deserialize===
+k&&p.setRequestHeader("Accept","application/json, text/*");c.withCredentials&&(p.withCredentials=c.withCredentials);for(var x in c.headers)({}).hasOwnProperty.call(c.headers,x)&&p.setRequestHeader(x,c.headers[x]);"function"===typeof c.config&&(p=c.config(p,c)||p);p.onreadystatechange=function(){if(p.status&&4===p.readyState)try{var a=c.extract!==m?c.extract(p,c):c.deserialize(c.extract(p,c));if(200<=p.status&&300>p.status||304===p.status)d(n(c.type,a));else{var q=Error(p.responseText),b;for(b in a)q[b]=
+a[b];f(q)}}catch(e){f(e)}};h&&null!=c.data?p.send(c.data):p.send()});return!0===c.background?A:t(A)},jsonp:function(c,k){var m=h();c=f(c,k);var x=new d(function(d,f){var h=c.callbackName||"_mithril_"+Math.round(1E16*Math.random())+"_"+t++,k=a.document.createElement("script");a[h]=function(f){k.parentNode.removeChild(k);d(n(c.type,f));delete a[h]};k.onerror=function(){k.parentNode.removeChild(k);f(Error("JSONP request failed"));delete a[h]};null==c.data&&(c.data={});c.url=g(c.url,c.data);c.data[c.callbackKey||
+"callback"]=h;k.src=l(c.url,c.data);a.document.documentElement.appendChild(k)});return!0===c.background?x:m(x)},setCompletionCallback:function(a){x=a}}}(window,v),N=function(a){function d(a,b,e,c,d,f,g){for(;e<c;e++){var q=b[e];null!=q&&h(a,q,d,g,f)}}function h(a,b,c,r,g){var q=b.tag;null!=b.attrs&&v(b.attrs,b,c);if("string"===typeof q)switch(q){case "#":return b.dom=p.createTextNode(b.children),n(a,b.dom,g),b.dom;case "<":return f(a,b,g);case "[":var e=p.createDocumentFragment();null!=b.children&&
+(q=b.children,d(e,q,0,q.length,c,null,r));b.dom=e.firstChild;b.domSize=e.childNodes.length;n(a,e,g);return e;default:var k=b.tag;switch(b.tag){case "svg":r="http://www.w3.org/2000/svg";break;case "math":r="http://www.w3.org/1998/Math/MathML"}var l=(q=b.attrs)&&q.is,k=r?l?p.createElementNS(r,k,{is:l}):p.createElementNS(r,k):l?p.createElement(k,{is:l}):p.createElement(k);b.dom=k;if(null!=q)for(e in l=r,q)y(b,e,null,q[e],l);n(a,k,g);null!=b.attrs&&null!=b.attrs.contenteditable?t(b):(null!=b.text&&(""!==
+b.text?k.textContent=b.text:b.children=[w("#",void 0,void 0,b.text,void 0,void 0)]),null!=b.children&&(a=b.children,d(k,a,0,a.length,c,null,r),a=b.attrs,"select"===b.tag&&null!=a&&("value"in a&&y(b,"value",null,a.value,void 0),"selectedIndex"in a&&y(b,"selectedIndex",null,a.selectedIndex,void 0))));return k}else{a:{if("function"===typeof b.tag){b.state=null;e=b.tag;if(null!=e.$$reentrantLock$$){b=J;break a}e.$$reentrantLock$$=!0;b.state=null!=b.tag.prototype&&"function"===typeof b.tag.prototype.view?
+new b.tag(b):b.tag(b)}else{b.state=Object.create(b.tag);e=b.state.view;if(null!=e.$$reentrantLock$$){b=J;break a}e.$$reentrantLock$$=!0}v(b.state,b,c);b.instance=w.normalize(b.state.view(b));e.$$reentrantLock$$=null;if(null!=b.instance){if(b.instance===b)throw Error("A view cannot return the vnode it received as arguments");c=h(a,b.instance,c,r,g);b.dom=b.instance.dom;b.domSize=null!=b.dom?b.instance.domSize:0;n(a,c,g);b=c}else b.domSize=0,b=J}return b}}function f(a,b,c){var e={caption:"table",thead:"table",
+tbody:"table",tfoot:"table",tr:"tbody",th:"tr",td:"tr",colgroup:"table",col:"colgroup"}[(b.children.match(/^\s*?<(\w+)/im)||[])[1]]||"div",e=p.createElement(e);e.innerHTML=b.children;b.dom=e.firstChild;b.domSize=e.childNodes.length;b=p.createDocumentFragment();for(var q;q=e.firstChild;)b.appendChild(q);n(a,b,c);return b}function g(a,b,e,c,f,g,p){if(b!==e&&(null!=b||null!=e))if(null==b)d(a,e,0,e.length,f,g,void 0);else if(null==e)x(b,0,b.length,e);else{if(b.length===e.length){for(var q=!1,r=0;r<e.length;r++)if(null!=
+e[r]&&null!=b[r]){q=null==e[r].key&&null==b[r].key;break}if(q){for(r=0;r<b.length;r++)b[r]!==e[r]&&(null==b[r]&&null!=e[r]?h(a,e[r],f,p,m(b,r+1,g)):null==e[r]?x(b,r,r+1,e):l(a,b[r],e[r],f,m(b,r+1,g),c,p));return}}if(!c)a:{if(null!=b.pool&&Math.abs(b.pool.length-e.length)<=Math.abs(b.length-e.length)&&(c=e[0]&&e[0].children&&e[0].children.length||0,Math.abs((b.pool[0]&&b.pool[0].children&&b.pool[0].children.length||0)-c)<=Math.abs((b[0]&&b[0].children&&b[0].children.length||0)-c))){c=!0;break a}c=
+!1}if(c){var t=b.pool;b=b.concat(b.pool)}for(var r=q=0,B=b.length-1,A=e.length-1,E;B>=q&&A>=r;){var u=b[q],y=e[r];if(u!==y||c)if(null==u)q++;else if(null==y)r++;else if(u.key===y.key){var C=null!=t&&q>=b.length-t.length||null==t&&c;q++;r++;l(a,u,y,f,m(b,q,g),C,p);c&&u.tag===y.tag&&n(a,k(u),g)}else if(u=b[B],u!==y||c)if(null==u)B--;else if(null==y)r++;else if(u.key===y.key)C=null!=t&&B>=b.length-t.length||null==t&&c,l(a,u,y,f,m(b,B+1,g),C,p),(c||r<A)&&n(a,k(u),m(b,q,g)),B--,r++;else break;else B--,
+r++;else q++,r++}for(;B>=q&&A>=r;){u=b[B];y=e[A];if(u!==y||c)if(null==u)B--;else{if(null!=y)if(u.key===y.key)C=null!=t&&B>=b.length-t.length||null==t&&c,l(a,u,y,f,m(b,B+1,g),C,p),c&&u.tag===y.tag&&n(a,k(u),g),null!=u.dom&&(g=u.dom),B--;else{if(!E){E=b;var u=B,C={},v;for(v=0;v<u;v++){var w=E[v];null!=w&&(w=w.key,null!=w&&(C[w]=v))}E=C}null!=y&&(u=E[y.key],null!=u?(C=b[u],l(a,C,y,f,m(b,B+1,g),c,p),n(a,k(C),g),b[u].skip=!0,null!=C.dom&&(g=C.dom)):g=h(a,y,f,void 0,g))}A--}else B--,A--;if(A<r)break}d(a,
+e,r,A+1,f,g,p);x(b,q,B+1,e)}}function l(a,b,e,d,n,p,u){var q=b.tag;if(q===e.tag){e.state=b.state;e.events=b.events;var r;var x;null!=e.attrs&&"function"===typeof e.attrs.onbeforeupdate&&(r=e.attrs.onbeforeupdate.call(e.state,e,b));"string"!==typeof e.tag&&"function"===typeof e.state.onbeforeupdate&&(x=e.state.onbeforeupdate(e,b));void 0===r&&void 0===x||r||x?r=!1:(e.dom=b.dom,e.domSize=b.domSize,e.instance=b.instance,r=!0);if(!r)if(null!=e.attrs&&z(e.attrs,e,d,p),"string"===typeof q)switch(q){case "#":b.children.toString()!==
+e.children.toString()&&(b.dom.nodeValue=e.children);e.dom=b.dom;break;case "<":b.children!==e.children?(k(b),f(a,e,n)):(e.dom=b.dom,e.domSize=b.domSize);break;case "[":g(a,b.children,e.children,p,d,n,u);b=0;d=e.children;e.dom=null;if(null!=d){for(p=0;p<d.length;p++){var m=d[p];null!=m&&null!=m.dom&&(null==e.dom&&(e.dom=m.dom),b+=m.domSize||1)}1!==b&&(e.domSize=b)}break;default:a=u;n=e.dom=b.dom;switch(e.tag){case "svg":a="http://www.w3.org/2000/svg";break;case "math":a="http://www.w3.org/1998/Math/MathML"}"textarea"===
+e.tag&&(null==e.attrs&&(e.attrs={}),null!=e.text&&(e.attrs.value=e.text,e.text=void 0));u=b.attrs;q=e.attrs;r=a;if(null!=q)for(m in q)y(e,m,u&&u[m],q[m],r);if(null!=u)for(m in u)null!=q&&m in q||("className"===m&&(m="class"),"o"!==m[0]||"n"!==m[1]||D(m)?"key"!==m&&e.dom.removeAttribute(m):M(e,m,void 0));null!=e.attrs&&null!=e.attrs.contenteditable?t(e):null!=b.text&&null!=e.text&&""!==e.text?b.text.toString()!==e.text.toString()&&(b.dom.firstChild.nodeValue=e.text):(null!=b.text&&(b.children=[w("#",
+void 0,void 0,b.text,void 0,b.dom.firstChild)]),null!=e.text&&(e.children=[w("#",void 0,void 0,e.text,void 0,void 0)]),g(n,b.children,e.children,p,d,null,a))}else e.instance=w.normalize(e.state.view(e)),z(e.state,e,d,p),null!=e.instance?(null==b.instance?h(a,e.instance,d,u,n):l(a,b.instance,e.instance,d,n,p,u),e.dom=e.instance.dom,e.domSize=e.instance.domSize):null!=b.instance?(c(b.instance,null),e.dom=void 0,e.domSize=0):(e.dom=b.dom,e.domSize=b.domSize)}else c(b,null),h(a,e,d,u,n)}function k(a){var b=
+a.domSize;if(null!=b||null==a.dom){var c=p.createDocumentFragment();if(0<b){for(a=a.dom;--b;)c.appendChild(a.nextSibling);c.insertBefore(a,c.firstChild)}return c}return a.dom}function m(a,b,c){for(;b<a.length;b++)if(null!=a[b]&&null!=a[b].dom)return a[b].dom;return c}function n(a,b,c){c&&c.parentNode?a.insertBefore(b,c):a.appendChild(b)}function t(a){var b=a.children;if(null!=b&&1===b.length&&"<"===b[0].tag)b=b[0].children,a.dom.innerHTML!==b&&(a.dom.innerHTML=b);else if(null!=a.text||null!=b&&0!==
+b.length)throw Error("Child node of a contenteditable must be trusted");}function x(a,b,e,d){for(;b<e;b++){var q=a[b];null!=q&&(q.skip?q.skip=!1:c(q,d))}}function c(a,b){function c(){if(++q===d&&(A(a),a.dom)){var c=a.domSize||1;if(1<c)for(var e=a.dom;--c;){var f=e.nextSibling,g=f.parentNode;null!=g&&g.removeChild(f)}c=a.dom;e=c.parentNode;null!=e&&e.removeChild(c);if(c=null!=b&&null==a.domSize)c=a.attrs,c=!(null!=c&&(c.oncreate||c.onupdate||c.onbeforeremove||c.onremove));c&&"string"===typeof a.tag&&
+(b.pool?b.pool.push(a):b.pool=[a])}}var d=1,q=0;if(a.attrs&&a.attrs.onbeforeremove){var f=a.attrs.onbeforeremove.call(a.state,a);null!=f&&"function"===typeof f.then&&(d++,f.then(c,c))}"string"!==typeof a.tag&&a.state.onbeforeremove&&(f=a.state.onbeforeremove(a),null!=f&&"function"===typeof f.then&&(d++,f.then(c,c)));c()}function A(a){a.attrs&&a.attrs.onremove&&a.attrs.onremove.call(a.state,a);if("string"!==typeof a.tag&&a.state.onremove)a.state.onremove(a);if(null!=a.instance)A(a.instance);else if(a=
+a.children,Array.isArray(a))for(var b=0;b<a.length;b++){var c=a[b];null!=c&&A(c)}}function y(a,b,c,d,f){var e=a.dom;if("key"!==b&&"is"!==b&&(c!==d||"value"===b||"checked"===b||"selectedIndex"===b||"selected"===b&&a.dom===p.activeElement||"object"===typeof d)&&"undefined"!==typeof d&&!D(b)){var g=b.indexOf(":");if(-1<g&&"xlink"===b.substr(0,g))e.setAttributeNS("http://www.w3.org/1999/xlink",b.slice(g+1),d);else if("o"===b[0]&&"n"===b[1]&&"function"===typeof d)M(a,b,d);else if("style"===b)if(a=c,a===
+d&&(e.style.cssText="",a=null),null==d)e.style.cssText="";else if("string"===typeof d)e.style.cssText=d;else{"string"===typeof a&&(e.style.cssText="");for(var q in d)e.style[q]=d[q];if(null!=a&&"string"!==typeof a)for(q in a)q in d||(e.style[q]="")}else b in e&&"href"!==b&&"list"!==b&&"form"!==b&&"width"!==b&&"height"!==b&&void 0===f&&!(a.attrs.is||-1<a.tag.indexOf("-"))?"input"===a.tag&&"value"===b&&a.dom.value==d&&a.dom===p.activeElement||"select"===a.tag&&"value"===b&&a.dom.value==d&&a.dom===p.activeElement||
+"option"===a.tag&&"value"===b&&a.dom.value==d||(e[b]=d):"boolean"===typeof d?d?e.setAttribute(b,""):e.removeAttribute(b):e.setAttribute("className"===b?"class":b,d)}}function D(a){return"oninit"===a||"oncreate"===a||"onupdate"===a||"onremove"===a||"onbeforeremove"===a||"onbeforeupdate"===a}function M(a,b,c){var d=a.dom,e="function"!==typeof I?c:function(a){var b=c.call(d,a);I.call(d,a);return b};if(b in d)d[b]="function"===typeof c?e:null;else{var f=b.slice(2);void 0===a.events&&(a.events={});a.events[b]!==
+e&&(null!=a.events[b]&&d.removeEventListener(f,a.events[b],!1),"function"===typeof c&&(a.events[b]=e,d.addEventListener(f,a.events[b],!1)))}}function v(a,b,c){"function"===typeof a.oninit&&a.oninit.call(b.state,b);"function"===typeof a.oncreate&&c.push(a.oncreate.bind(b.state,b))}function z(a,b,c,d){d?v(a,b,c):"function"===typeof a.onupdate&&c.push(a.onupdate.bind(b.state,b))}var p=a.document,J=p.createDocumentFragment(),I;return{render:function(a,b){if(!a)throw Error("Ensure the DOM element being passed to m.route/m.mount/m.render is not undefined.");
+var c=[],d=p.activeElement;null==a.vnodes&&(a.textContent="");Array.isArray(b)||(b=[b]);g(a,a.vnodes,w.normalizeChildren(b),!1,c,null,void 0);a.vnodes=b;for(var f=0;f<c.length;f++)c[f]();p.activeElement!==d&&d.focus()},setEventCallback:function(a){return I=a}}},G=function(a){function d(a){a=f.indexOf(a);-1<a&&f.splice(a,2)}function h(){for(var a=1;a<f.length;a+=2)f[a]()}a=N(a);a.setEventCallback(function(a){!1!==a.redraw&&h()});var f=[];return{subscribe:function(a,h){d(a);f.push(a,P(h))},unsubscribe:d,
+redraw:h,render:a.render}}(window);K.setCompletionCallback(G.redraw);z.mount=function(a){return function(d,h){if(null===h)a.render(d,[]),a.unsubscribe(d);else{if(null==h.view&&"function"!==typeof h)throw Error("m.mount(element, component) expects a component, not a vnode");a.subscribe(d,function(){a.render(d,w(h))});a.redraw()}}}(G);var R=v,L=function(a){if(""===a||null==a)return{};"?"===a.charAt(0)&&(a=a.slice(1));a=a.split("&");for(var d={},h={},f=0;f<a.length;f++){var g=a[f].split("="),l=decodeURIComponent(g[0]),
+g=2===g.length?decodeURIComponent(g[1]):"";"true"===g?g=!0:"false"===g&&(g=!1);var k=l.split(/\]\[?|\[/),m=d;-1<l.indexOf("[")&&k.pop();for(var n=0;n<k.length;n++){var l=k[n],t=k[n+1],t=""==t||!isNaN(parseInt(t,10)),x=n===k.length-1;""===l&&(l=k.slice(0,n).join(),null==h[l]&&(h[l]=0),l=h[l]++);null==m[l]&&(m[l]=x?g:t?[]:{});m=m[l]}}return d},S=function(a){function d(d){var f=a.location[d].replace(/(?:%[a-f89][a-f0-9])+/gim,decodeURIComponent);"pathname"===d&&"/"!==f[0]&&(f="/"+f);return f}function h(a){return function(){null==
+k&&(k=l(function(){k=null;a()}))}}function f(a,d,f){var c=a.indexOf("?"),g=a.indexOf("#"),k=-1<c?c:-1<g?g:a.length;if(-1<c){var c=L(a.slice(c+1,-1<g?g:a.length)),h;for(h in c)d[h]=c[h]}if(-1<g)for(h in d=L(a.slice(g+1)),d)f[h]=d[h];return a.slice(0,k)}var g="function"===typeof a.history.pushState,l="function"===typeof setImmediate?setImmediate:setTimeout,k,m={prefix:"#!",getPath:function(){switch(m.prefix.charAt(0)){case "#":return d("hash").slice(m.prefix.length);case "?":return d("search").slice(m.prefix.length)+
+d("hash");default:return d("pathname").slice(m.prefix.length)+d("search")+d("hash")}},setPath:function(d,h,k){var c={},l={};d=f(d,c,l);if(null!=h){for(var n in h)c[n]=h[n];d=d.replace(/:([^\/]+)/g,function(a,d){delete c[d];return h[d]})}(n=F(c))&&(d+="?"+n);(l=F(l))&&(d+="#"+l);g?(l=k?k.state:null,n=k?k.title:null,a.onpopstate(),k&&k.replace?a.history.replaceState(l,n,m.prefix+d):a.history.pushState(l,n,m.prefix+d)):a.location.href=m.prefix+d},defineRoutes:function(d,k,l){function c(){var c=m.getPath(),
+g={},h=f(c,g,g),n=a.history.state;if(null!=n)for(var x in n)g[x]=n[x];for(var t in d)if(n=new RegExp("^"+t.replace(/:[^\/]+?\.{3}/g,"(.*?)").replace(/:[^\/]+/g,"([^\\/]+)")+"/?$"),n.test(h)){h.replace(n,function(){for(var a=t.match(/:[^\/]+/g)||[],f=[].slice.call(arguments,1,-2),h=0;h<a.length;h++)g[a[h].replace(/:|\./g,"")]=decodeURIComponent(f[h]);k(d[t],g,c,t)});return}l(c,g)}g?a.onpopstate=h(c):"#"===m.prefix.charAt(0)&&(a.onhashchange=c);c()}};return m};z.route=function(a,d){var h=S(a),f=function(a){return a},
+g,l,k,m,n,t=function(a,c,t){if(null==a)throw Error("Ensure the DOM element that was passed to `m.route` is not undefined");var x=function(){null!=g&&d.render(a,g(w(l,k.key,k)))},v=function(a){if(a!==c)h.setPath(c,null,{replace:!0});else throw Error("Could not resolve default route "+c);};h.defineRoutes(t,function(a,c,d){var h=n=function(a,p){h===n&&(l=null==p||"function"!==typeof p.view&&"function"!==typeof p?"div":p,k=c,m=d,n=null,g=(a.render||f).bind(a),x())};a.view||"function"===typeof a?h({},
+a):a.onmatch?R.resolve(a.onmatch(c,d)).then(function(c){h(a,c)},v):h(a,"div")},v);d.subscribe(a,x)};t.set=function(a,c,d){null!=n&&(d={replace:!0});n=null;h.setPath(a,c,d)};t.get=function(){return m};t.prefix=function(a){h.prefix=a};t.link=function(a){a.dom.setAttribute("href",h.prefix+a.attrs.href);a.dom.onclick=function(a){a.ctrlKey||a.metaKey||a.shiftKey||2===a.which||(a.preventDefault(),a.redraw=!1,a=this.getAttribute("href"),0===a.indexOf(h.prefix)&&(a=a.slice(h.prefix.length)),t.set(a,void 0,
+void 0))}};t.param=function(a){return"undefined"!==typeof k&&"undefined"!==typeof a?k[a]:k};return t}(window,G);z.withAttr=function(a,d,h){return function(f){d.call(h||this,a in f.currentTarget?f.currentTarget[a]:f.currentTarget.getAttribute(a))}};var T=N(window);z.render=T.render;z.redraw=G.redraw;z.request=K.request;z.jsonp=K.jsonp;z.parseQueryString=L;z.buildQueryString=F;z.version="1.0.1";z.vnode=w;"undefined"!==typeof module?module.exports=z:window.m=z};;
+// Generated by CoffeeScript 1.10.0
+(function() {
+  var SeapigMasterObject, SeapigObject, SeapigSlaveObject, SeapigWildcardSlaveObject,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  this.SeapigClient = (function() {
+    function SeapigClient(uri, options) {
+      if (options == null) {
+        options = {};
+      }
+      this.uri = uri;
+      this.options = options;
+      this.slave_objects = {};
+      this.master_objects = {};
+      this.connected = false;
+      this.socket = void 0;
+      this.error = void 0;
+      this.connect();
+    }
+
+    SeapigClient.prototype.connect = function() {
+      var error, error1;
+      this.reconnect_on_close = true;
+      if (this.socket != null) {
+        return this.socket.close();
+      }
+      try {
+        this.socket = new WebSocket(this.uri);
+      } catch (error1) {
+        error = error1;
+        this.error = {
+          "while": "connecting",
+          error: error
+        };
+        if (this.onstatuschange_proc != null) {
+          this.onstatuschange_proc(this);
+        }
+        return false;
+      }
+      this.socket.onopen = (function(_this) {
+        return function() {
+          var id, object, ref, ref1, results;
+          if (_this.options.debug) {
+            console.log('Connected to seapig server');
+          }
+          _this.connected = true;
+          _this.error = null;
+          if (_this.onstatuschange_proc != null) {
+            _this.onstatuschange_proc(_this);
+          }
+          _this.socket.send(JSON.stringify({
+            action: 'client-options-set',
+            options: _this.options
+          }));
+          ref = _this.slave_objects;
+          for (id in ref) {
+            object = ref[id];
+            _this.socket.send(JSON.stringify({
+              action: 'object-consumer-register',
+              pattern: id,
+              "version-known": object.version
+            }));
+            object.validate();
+          }
+          ref1 = _this.master_objects;
+          results = [];
+          for (id in ref1) {
+            object = ref1[id];
+            results.push(_this.socket.send(JSON.stringify({
+              action: 'object-producer-register',
+              pattern: id,
+              "version-known": object.version
+            })));
+          }
+          return results;
+        };
+      })(this);
+      this.socket.onclose = (function(_this) {
+        return function() {
+          var id, object, ref;
+          if (_this.options.debug) {
+            console.log('Seapig connection closed');
+          }
+          _this.connected = false;
+          _this.socket = void 0;
+          ref = _this.slave_objects;
+          for (id in ref) {
+            object = ref[id];
+            object.invalidate();
+          }
+          if (_this.onstatuschange_proc != null) {
+            _this.onstatuschange_proc(_this);
+          }
+          if (_this.reconnect_on_close) {
+            return _this.reconnection_timer = setTimeout((function() {
+              _this.reconnection_timer = void 0;
+              return _this.connect();
+            }), 2000);
+          }
+        };
+      })(this);
+      this.socket.onerror = (function(_this) {
+        return function(error) {
+          if (_this.options.debug) {
+            console.log('Seapig socket error', error);
+          }
+          return _this.error = {
+            "while": "connected",
+            error: error
+          };
+        };
+      })(this);
+      return this.socket.onmessage = (function(_this) {
+        return function(event) {
+          var handler, id, message, object, ref, ref1, ref2;
+          message = JSON.parse(event.data);
+          switch (message.action) {
+            case 'object-update':
+              ref = _this.slave_objects;
+              for (id in ref) {
+                object = ref[id];
+                if (object.matches(message['id'])) {
+                  object.patch(message);
+                }
+              }
+              break;
+            case 'object-destroy':
+              ref1 = _this.slave_objects;
+              for (id in ref1) {
+                object = ref1[id];
+                if (object.matches(message['id'])) {
+                  object.destroy(message['id']);
+                }
+              }
+              ref2 = _this.master_objects;
+              for (id in ref2) {
+                object = ref2[id];
+                if (object.matches(message['id'])) {
+                  object.destroy(message['id']);
+                }
+              }
+              break;
+            case 'object-produce':
+              handler = _.find(_.values(_this.master_objects), function(object) {
+                return object.matches(message['id']);
+              });
+              if ((!handler) && _this.options.debug) {
+                console.error('Seapig server submitted invalid "produce" request', message);
+              }
+              if (handler) {
+                handler.produce(message['id'], message['version-inferred']);
+              }
+              break;
+            default:
+              if (_this.options.debug) {
+                console.error('Seapig server submitted an unsupported message', message);
+              }
+          }
+          return null;
+        };
+      })(this);
+    };
+
+    SeapigClient.prototype.disconnect = function() {
+      this.reconnect_on_close = false;
+      if (this.reconnection_timer != null) {
+        clearTimeout(this.reconnection_timer);
+      }
+      if (this.socket != null) {
+        return this.socket.close();
+      }
+    };
+
+    SeapigClient.prototype.onstatuschange = function(proc) {
+      this.onstatuschange_proc = proc;
+      return this;
+    };
+
+    SeapigClient.prototype.slave = function(id, options) {
+      if (options == null) {
+        options = {};
+      }
+      if ((options["object"] && !options['version']) || (!options["object"] && options['version'])) {
+        throw "Both or none of 'object' and 'version' are needed";
+      }
+      this.slave_objects[id] = id.indexOf('*') >= 0 ? new SeapigWildcardSlaveObject(this, id, options) : new SeapigSlaveObject(this, id, options);
+      if (this.connected) {
+        this.socket.send(JSON.stringify({
+          action: 'object-consumer-register',
+          pattern: id,
+          "version-known": this.slave_objects[id].version
+        }));
+      }
+      return this.slave_objects[id];
+    };
+
+    SeapigClient.prototype.master = function(id, options) {
+      if (options == null) {
+        options = {};
+      }
+      this.master_objects[id] = id.indexOf('*') >= 0 ? new SeapigWildcardMasterObject(this, id, options) : new SeapigMasterObject(this, id, options);
+      if (this.connected) {
+        this.socket.send(JSON.stringify({
+          action: 'object-producer-register',
+          pattern: id,
+          "version-known": this.master_objects[id].version
+        }));
+      }
+      return this.master_objects[id];
+    };
+
+    SeapigClient.prototype.unlink = function(id) {
+      if (this.slave_objects[id] != null) {
+        delete this.slave_objects[id];
+        if (this.connected) {
+          this.socket.send(JSON.stringify({
+            action: 'object-consumer-unregister',
+            pattern: id
+          }));
+        }
+      }
+      if (this.master_objects[id] != null) {
+        delete this.master_objects[id];
+        if (this.connected) {
+          return this.socket.send(JSON.stringify({
+            action: 'object-producer-unregister',
+            pattern: id
+          }));
+        }
+      }
+    };
+
+    return SeapigClient;
+
+  })();
+
+  SeapigObject = (function() {
+    function SeapigObject(client, id, options) {
+      this.client = client;
+      this.id = id;
+      this.destroyed = false;
+      this.object = {};
+      this.initialized = !!options.object;
+      if (options.object != null) {
+        _.extend(this.object, options.object);
+      }
+    }
+
+    SeapigObject.prototype.destroy = function(id) {
+      this.destroyed = true;
+      if (this.onstatuschange_proc != null) {
+        this.onstatuschange_proc(this);
+      }
+      if (this.ondestroy_proc != null) {
+        return this.ondestroy_proc(this);
+      }
+    };
+
+    SeapigObject.prototype.matches = function(id) {
+      return id.match(new RegExp(this.id.replace(/[^A-Za-z0-9*]/g, "\\$&").replace("*", ".*?")));
+    };
+
+    SeapigObject.prototype.sanitized = function() {
+      return JSON.parse(JSON.stringify(this.object));
+    };
+
+    SeapigObject.prototype.ondestroy = function(proc) {
+      this.ondestroy_proc = proc;
+      return this;
+    };
+
+    SeapigObject.prototype.onstatuschange = function(proc) {
+      this.onstatuschange_proc = proc;
+      return this;
+    };
+
+    SeapigObject.prototype.unlink = function() {
+      return this.client.unlink(this.id);
+    };
+
+    return SeapigObject;
+
+  })();
+
+  SeapigSlaveObject = (function(superClass) {
+    extend(SeapigSlaveObject, superClass);
+
+    function SeapigSlaveObject(client, id, options) {
+      SeapigSlaveObject.__super__.constructor.call(this, client, id, options);
+      this.version = options.version || 0;
+      this.valid = false;
+      this.received_at = null;
+    }
+
+    SeapigSlaveObject.prototype.onchange = function(proc) {
+      this.onchange_proc = proc;
+      return this;
+    };
+
+    SeapigSlaveObject.prototype.patch = function(message) {
+      var key, old_object, ref, ref1, value;
+      this.received_at = new Date();
+      old_object = JSON.stringify(this.object);
+      if ((!message['version-old']) || (message['version-old'] === 0) || (message.value != null)) {
+        ref = this.object;
+        for (key in ref) {
+          value = ref[key];
+          delete this.object[key];
+        }
+      } else if (!_.isEqual(this.version, message['version-old'])) {
+        console.error("Seapig lost some updates, this shouldn't ever happen. object:", this.id, " version:", this.version, " message:", message);
+      }
+      if (message.value != null) {
+        ref1 = message.value;
+        for (key in ref1) {
+          value = ref1[key];
+          this.object[key] = value;
+        }
+      } else {
+        jsonpatch.apply(this.object, message.patch);
+      }
+      this.version = message['version-new'];
+      this.valid = true;
+      this.initialized = true;
+      if (this.onstatuschange_proc != null) {
+        this.onstatuschange_proc(this);
+      }
+      if ((this.onchange_proc != null) && old_object !== JSON.stringify(this.object)) {
+        return this.onchange_proc(this);
+      }
+    };
+
+    SeapigSlaveObject.prototype.validate = function() {
+      this.valid = this.initialized;
+      if (this.onstatuschange_proc != null) {
+        return this.onstatuschange_proc(this);
+      }
+    };
+
+    SeapigSlaveObject.prototype.invalidate = function() {
+      this.valid = false;
+      if (this.onstatuschange_proc != null) {
+        return this.onstatuschange_proc(this);
+      }
+    };
+
+    return SeapigSlaveObject;
+
+  })(SeapigObject);
+
+  SeapigMasterObject = (function(superClass) {
+    extend(SeapigMasterObject, superClass);
+
+    function SeapigMasterObject(client, id, options) {
+      SeapigMasterObject.__super__.constructor.call(this, client, id, options);
+      this.version = options.version || [(new Date()).getTime(), 0];
+      this.shadow = this.sanitized();
+      this.stall = false;
+    }
+
+    SeapigMasterObject.prototype.onproduce = function(proc) {
+      this.onproduce_proc = proc;
+      return this;
+    };
+
+    SeapigMasterObject.prototype.set = function(options) {
+      var key, ref, value;
+      if (options == null) {
+        options = {};
+      }
+      if (options.version != null) {
+        this.version = options.version;
+      }
+      if (options.object != null) {
+        this.stall = false;
+        ref = this.object;
+        for (key in ref) {
+          value = ref[key];
+          delete this.object[key];
+        }
+        _.extend(this.object, options.object);
+      } else if (options.object === false || options.stall) {
+        this.stall = true;
+      }
+      this.shadow = this.sanitized();
+      this.initialized = true;
+      return this.upload(0, {}, this.version, this.stall ? false : this.shadow);
+    };
+
+    SeapigMasterObject.prototype.bump = function(options) {
+      var data_old, version_old;
+      if (options == null) {
+        options = {};
+      }
+      version_old = this.version;
+      data_old = this.shadow;
+      this.version = options.version || [version_old[0], version_old[1] + 1];
+      this.shadow = this.sanitized();
+      this.initialized = true;
+      return this.upload(version_old, data_old, this.version, this.stall ? false : this.shadow);
+    };
+
+    SeapigMasterObject.prototype.produce = function(id, version_inferred) {
+      if (this.onproduce_proc != null) {
+        return this.onproduce_proc(this, version_inferred);
+      } else {
+        if (!this.initialized) {
+          throw "Master object " + id + " has to either be initialized at all times or have an onproduce callback";
+        }
+        return this.upload(0, {}, this.version, this.shadow);
+      }
+    };
+
+    SeapigMasterObject.prototype.upload = function(version_old, data_old, version_new, data_new) {
+      var diff;
+      if (this.client.connected) {
+        if (version_old === 0 || data_new === false) {
+          this.client.socket.send(JSON.stringify({
+            id: this.id,
+            action: 'object-patch',
+            "version-new": version_new,
+            value: data_new
+          }));
+        } else {
+          diff = jsonpatch.compare(data_old, data_new);
+          if (JSON.stringify(diff).length < JSON.stringify(data_new).length) {
+            this.client.socket.send(JSON.stringify({
+              id: this.id,
+              action: 'object-patch',
+              'version-old': version_old,
+              'version-new': version_new,
+              patch: diff
+            }));
+          } else {
+            this.client.socket.send(JSON.stringify({
+              id: this.id,
+              action: 'object-patch',
+              'version-new': version_new,
+              value: data_new
+            }));
+          }
+        }
+      }
+      return this;
+    };
+
+    return SeapigMasterObject;
+
+  })(SeapigObject);
+
+  SeapigWildcardSlaveObject = (function(superClass) {
+    extend(SeapigWildcardSlaveObject, superClass);
+
+    function SeapigWildcardSlaveObject(client, id, options) {
+      SeapigWildcardSlaveObject.__super__.constructor.call(this, client, id, options);
+      this.children = {};
+    }
+
+    SeapigWildcardSlaveObject.prototype.patch = function(message) {
+      if (this.children[message['id']] == null) {
+        this.children[message['id']] = new SeapigSlaveObject(this.client, message['id'], {}).onchange(this.onchange_proc).onstatuschange(this.onstatuschange_proc);
+        this.object[message['id']] = this.children[message['id']].object;
+      }
+      return this.children[message['id']].patch(message);
+    };
+
+    SeapigWildcardSlaveObject.prototype.destroy = function(id) {
+      var destroyed;
+      if ((destroyed = this.children[id]) == null) {
+        return;
+      }
+      delete this.object[id];
+      delete this.children[id];
+      return destroyed.destroy(id);
+    };
+
+    return SeapigWildcardSlaveObject;
+
+  })(SeapigSlaveObject);
+
+}).call(this);
+
+//# sourceMappingURL=seapig-client.js.map
+// Generated by CoffeeScript 1.10.0
+(function() {
+  var Aggregates, BarChart, Chart, Connection, Connections, Footer, Header, Layout, ObjectVersion, Objects, Observe, SpectrumChart, Statistics, StatisticsRow;
+
+  ObjectVersion = {
+    view: function(vnode) {
+      var key, ref, results, value;
+      if (Array.isArray(vnode.attrs.version) || !vnode.attrs.version || typeof vnode.attrs.version === "number") {
+        return m('', JSON.stringify(vnode.attrs.version, null, 2));
+      } else {
+        ref = vnode.attrs.version;
+        results = [];
+        for (key in ref) {
+          value = ref[key];
+          results.push(m('', key + ': ' + JSON.stringify(value, null, 2)));
+        }
+        return results;
+      }
+    }
+  };
+
+  Header = {
+    view: function(vnode) {
+      return m('nav.navbar.navbar-toggleable-md.navbar-light.bg-primary.navbar-inverse', m('button.navbar-toggler.navbar-toggler-right', {
+        type: "button",
+        'data-toggle': "collapse",
+        'data-target': "#navbar-menu",
+        'aria-controls': "navbar-menu",
+        'aria-expanded': "false",
+        'aria-label': "Toggle navigation"
+      }, m('span.navbar-toggler-icon')), m('a.navbar-brand', {
+        href: "https://github.com/yunta-mb/seapig-server"
+      }, 'SeaPig'), typeof seapig_client !== "undefined" && seapig_client !== null ? [
+        m('#navbar-menu.collapse.navbar-collapse', m('ul.navbar-nav.mr-auto', m('li.nav-item' + (vnode.attrs.route === "statistics" && ".active"), m('a.nav-link', {
+          href: "/" + encodeURIComponent(seapig_client.uri) + "/statistics",
+          oncreate: m.route.link
+        }, "Statistics")), m('li.nav-item' + (vnode.attrs.route === "connections" && ".active"), m('a.nav-link', {
+          href: "/" + encodeURIComponent(seapig_client.uri) + "/connections",
+          oncreate: m.route.link
+        }, "Connections")), m('li.nav-item' + (vnode.attrs.route === "objects" && ".active"), m('a.nav-link', {
+          href: "/" + encodeURIComponent(seapig_client.uri) + "/objects",
+          oncreate: m.route.link
+        }, "Objects")), m('li.nav-item' + (vnode.attrs.route === "observe" && ".active"), m('a.nav-link', {
+          href: "/" + encodeURIComponent(seapig_client.uri) + "/observe" + ((typeof seapig_object !== "undefined" && seapig_object !== null) && "/" + encodeURIComponent(seapig_object.id) || ""),
+          oncreate: m.route.link
+        }, "Observe" + ((typeof seapig_object !== "undefined" && seapig_object !== null) && ":" + seapig_object.id || ""))))), m('span.text-white', "Server: " + seapig_client.uri), m('button.btn.btn-outline', {
+          onclick: (function() {
+            return m.route.set("/");
+          })
+        }, "Disconnect")
+      ] : void 0);
+    }
+  };
+
+  Footer = {
+    view: function(vnode) {
+      return m('.col', m.trust('&nbsp;'));
+    }
+  };
+
+  Layout = {
+    view: function(vnode) {
+      return _.union([m(Header)], [
+        (typeof seapig_client !== "undefined" && seapig_client !== null) && seapig_client.connected ? vnode.attrs.child() : m('.container-flex.mx-auto', m('.card.mx-auto.my-4', {
+          style: {
+            width: '600px'
+          }
+        }, m('.card-block', seapig_client.error != null ? seapig_client.error["while"] === "connecting" ? [m('', "Couldn't connect to server:"), m('', seapig_client.error.error.toString())] : m('', 'Connection failed. Reconnecting...') : m('', "Connecting to server..."))))
+      ], [m(Footer)]);
+    }
+  };
+
+  Connection = {
+    view: function(vnode) {
+      return [
+        m(Header), m('.container-flex.mx-auto', m('.card.mx-auto.my-4', {
+          style: {
+            width: '600px'
+          }
+        }, m('.card-block', m('form.m-2.text-center', m('input#server-url.mb-2.mx-auto', {
+          type: "text",
+          placeholder: 'SeaPig server URL',
+          style: {
+            width: '500px'
+          }
+        }), m('button.btn.btn-outline.btn-primary.mx-auto', {
+          type: "submit",
+          onclick: (function() {
+            return m.route.set("/:server/statistics", {
+              server: encodeURIComponent($("#server-url").val())
+            });
+          })
+        }, "Connect"))))), m(Footer)
+      ];
+    }
+  };
+
+  Statistics = {
+    view: function(vnode) {
+      if (seapig_statistics.valid) {
+        return m('.container-flex', {
+          style: {
+            width: '95%'
+          },
+          "class": 'mx-auto'
+        }, m(StatisticsRow, {
+          measure: 'connections-count',
+          chart: BarChart,
+          name: "Number&nbsp;of connections",
+          aggregate: "last"
+        }), m(StatisticsRow, {
+          measure: 'message-outgoing-count',
+          chart: BarChart,
+          name: "Number&nbsp;of outgoing&nbsp;messages",
+          aggregate: "count"
+        }), m(StatisticsRow, {
+          measure: 'message-outgoing-size',
+          chart: BarChart,
+          name: "Total&nbsp;size&nbsp;of outgoing&nbsp;messages&nbsp;[B]",
+          aggregate: "sum"
+        }), m(StatisticsRow, {
+          measure: 'message-outgoing-size',
+          chart: SpectrumChart,
+          name: "Size&nbsp;of outgoing&nbsp;messages&nbsp;[B]",
+          aggregate: "histogram"
+        }), m(StatisticsRow, {
+          measure: 'message-incoming-count',
+          chart: BarChart,
+          name: "Number&nbsp;of incoming&nbsp;messages",
+          aggregate: "count"
+        }), m(StatisticsRow, {
+          measure: 'message-incoming-size',
+          chart: BarChart,
+          name: "Total&nbsp;size&nbsp;of incoming&nbsp;messages&nbsp;[B]",
+          aggregate: "sum"
+        }), m(StatisticsRow, {
+          measure: 'message-incoming-size',
+          chart: SpectrumChart,
+          name: "Size&nbsp;of incoming&nbsp;messages&nbsp;[B]",
+          aggregate: "histogram"
+        }), m(StatisticsRow, {
+          measure: 'message-incoming-processing-time',
+          chart: SpectrumChart,
+          name: "&nbsp Processing&nbsp;time&nbsp;[μs]",
+          aggregate: "histogram"
+        }));
+      }
+    }
+  };
+
+  Connections = {
+    view: function(vnode) {
+      var client, client_id, connection, connection_id, object;
+      if (seapig_connections.valid) {
+        return m('.container-flex.mt-3', {
+          style: {
+            width: '95%'
+          },
+          "class": 'mx-auto'
+        }, m('.row.justify-content-md-center', m('.col', m('table.table.table-sm', m('thead', m('tr', m('th', "ConnID"), m('th', "Client ID"), m('th', "Consumes"), m('th', "Produces"), m('th', "Now producing"))), m('tbody', (function() {
+          var j, len, ref, ref1, results;
+          ref = _.sortBy(_.pairs(seapig_connections.object), function(c) {
+            return c[0];
+          });
+          results = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            ref1 = ref[j], connection_id = ref1[0], connection = ref1[1];
+            results.push((function() {
+              var ref2, results1;
+              ref2 = connection.clients;
+              results1 = [];
+              for (client_id in ref2) {
+                client = ref2[client_id];
+                results1.push(m('tr', m('td', connection_id), m('th', client_id), m('td', (function() {
+                  var k, len1, ref3, results2;
+                  ref3 = _.sortBy(client.consumes);
+                  results2 = [];
+                  for (k = 0, len1 = ref3.length; k < len1; k++) {
+                    object = ref3[k];
+                    results2.push(m('', object));
+                  }
+                  return results2;
+                })()), m('td', (function() {
+                  var k, len1, ref3, results2;
+                  ref3 = _.sortBy(client.produces);
+                  results2 = [];
+                  for (k = 0, len1 = ref3.length; k < len1; k++) {
+                    object = ref3[k];
+                    results2.push(m('', object));
+                  }
+                  return results2;
+                })()), m('td', client.producing ? [m('', client.producing[0]), m('', JSON.stringify(client.producing[1]))] : void 0)));
+              }
+              return results1;
+            })());
+          }
+          return results;
+        })())))));
+      }
+    }
+  };
+
+  Objects = {
+    view: function(vnode) {
+      var consumer, object, object_id, producer;
+      if (seapig_connections.valid) {
+        return m('.container-flex.mt-3', {
+          style: {
+            width: '95%'
+          },
+          "class": 'mx-auto'
+        }, m('.row.justify-content-md-center', m('.col', m('table.table.table-sm', m('thead', m('tr', m('th', "Object ID"), m('th', {
+          style: {
+            width: "100px"
+          }
+        }, "State"), m('th', "Highest Version known"), m('th', "Highest Version inferred"), m('th', "Consumers"), m('th', "Producers"))), m('tbody', (function() {
+          var j, len, ref, ref1, results;
+          ref = _.sortBy(_.pairs(seapig_objects.object));
+          results = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            ref1 = ref[j], object_id = ref1[0], object = ref1[1];
+            results.push(m('tr', m('th', m('a', {
+              href: '/' + encodeURIComponent(seapig_client.uri) + '/observe/' + encodeURIComponent(object_id),
+              oncreate: m.route.link
+            }, object_id)), m('td', object.state.current ? "current" : object.state.producing ? "producing" : object.state.enqueued ? "enqueued" : "waiting for dependencies"), m('td', m(ObjectVersion, {
+              version: object.version_highest_known
+            })), m('td', m(ObjectVersion, {
+              version: object.version_highest_inferred
+            })), m('td', (function() {
+              var k, len1, ref2, results1;
+              ref2 = _.sortBy(object.consumers);
+              results1 = [];
+              for (k = 0, len1 = ref2.length; k < len1; k++) {
+                consumer = ref2[k];
+                results1.push(m('', consumer));
+              }
+              return results1;
+            })()), m('td', (function() {
+              var k, len1, ref2, results1;
+              ref2 = _.sortBy(object.producers);
+              results1 = [];
+              for (k = 0, len1 = ref2.length; k < len1; k++) {
+                producer = ref2[k];
+                results1.push(m('', producer));
+              }
+              return results1;
+            })())));
+          }
+          return results;
+        })())))));
+      }
+    }
+  };
+
+  Observe = {
+    view: function(vnode) {
+      return m('.container-flex.mt-3', {
+        style: {
+          width: '95%'
+        },
+        "class": 'mx-auto'
+      }, m('.row.justify-content-md-center', m('.col', m('.card', m('.card-header.text-center', m('form.form-inline', m('.input-group.mr-sm-2', m('.input-group-addon', "Seapig Object ID"), m('input#object-id.form-control', {
+        disabled: (typeof seapig_object !== "undefined" && seapig_object !== null),
+        type: "text",
+        style: {
+          width: '500px'
+        }
+      })), m('button.btn.btn-primary.mr-sm-2', {
+        disabled: (typeof seapig_object !== "undefined" && seapig_object !== null),
+        type: "submit",
+        onclick: ((function(_this) {
+          return function() {
+            m.route.set("/" + encodeURIComponent(seapig_client.uri) + "/observe/:pattern", {
+              pattern: encodeURIComponent($("#object-id").val())
+            });
+            return false;
+          };
+        })(this))
+      }, "Subscribe"), m('button.btn.btn-primary', {
+        disabled: typeof seapig_object === "undefined" || seapig_object === null,
+        type: "submit",
+        onclick: ((function(_this) {
+          return function() {
+            m.route.set("/" + encodeURIComponent(seapig_client.uri) + "/observe");
+            return false;
+          };
+        })(this))
+      }, "Un-subscribe"))), typeof seapig_object !== "undefined" && seapig_object !== null ? [
+        m('.row.ml-0.mr-0', {
+          style: {
+            "border-bottom": "1px solid rgba(0,0,0,.125)"
+          }
+        }, m('.col.col-md-auto.bg-faded.pt-2.pb-1', {
+          style: {
+            width: '150px'
+          }
+        }, 'Valid'), m('.col.pt-2.pb-1', JSON.stringify(seapig_object.valid))), m('.row.ml-0.pt-0', {
+          style: {
+            "border-bottom": "1px solid rgba(0,0,0,.125)"
+          }
+        }, m('.col.col-md-auto.bg-faded.pt-2.pb-1', {
+          style: {
+            width: '150px'
+          }
+        }, 'Version'), m('.col.pt-2.pb-1', m(ObjectVersion, {
+          version: seapig_object.version
+        }))), m('.row.ml-0.pt-0', {
+          style: {
+            "border-bottom": "1px solid rgba(0,0,0,.125)"
+          }
+        }, m('.col.col-md-auto.bg-faded.pt-2.pb-1', {
+          style: {
+            width: '150px'
+          }
+        }, 'JSON Size'), m('.col.pt-2.pb-1', JSON.stringify(seapig_object.object).length)), m('.row.ml-0.pt-0', m('.col.col-md-auto.bg-faded.pt-2.pb-1', {
+          style: {
+            width: '150px'
+          }
+        }, 'Object'), m('.col.pt-2.pb-1', m('pre', JSON.stringify(seapig_object.object, null, 8))))
+      ] : void 0))));
+    },
+    unsubscribe: function() {
+      if (typeof seapig_object !== "undefined" && seapig_object !== null) {
+        seapig_object.unlink();
+        return window.seapig_object = null;
+      }
+    },
+    subscribe: function(id) {
+      return window.seapig_object = seapig_client.slave(id).onstatuschange(function(pig) {
+        return m.redraw();
+      });
+    },
+    oncreate: function(vnode) {
+      this.onupdate(vnode);
+      return $("#object-id").val(seapig_object && seapig_object.id || "");
+    },
+    onupdate: function(vnode) {
+      if ((vnode.attrs.pattern != null)) {
+        if ((!seapig_object) || (seapig_object.id !== vnode.attrs.pattern)) {
+          this.unsubscribe();
+          return this.subscribe(vnode.attrs.pattern);
+        }
+      } else {
+        return this.unsubscribe();
+      }
+    }
+  };
+
+  StatisticsRow = {
+    view: function(vnode) {
+      return m('.row', m('.col', {
+        style: {
+          "max-width": '50px',
+          'transform-origin': '0 0 0',
+          'transform': 'rotate(-90deg) translate(-230px,10px)'
+        }
+      }, m.trust(vnode.attrs.name)), m('.col', m(vnode.attrs.chart, {
+        data: seapig_statistics.object["seconds"],
+        measure: vnode.attrs.measure,
+        aggregate: vnode.attrs.aggregate
+      }), m(Aggregates, {
+        data: seapig_statistics.object["seconds"],
+        measure: vnode.attrs.measure
+      })), m('.col', m(vnode.attrs.chart, {
+        data: seapig_statistics.object["minutes"],
+        measure: vnode.attrs.measure,
+        aggregate: vnode.attrs.aggregate
+      }), m(Aggregates, {
+        data: seapig_statistics.object["minutes"],
+        measure: vnode.attrs.measure
+      })), m('.col', m(vnode.attrs.chart, {
+        data: seapig_statistics.object["hours"],
+        measure: vnode.attrs.measure,
+        aggregate: vnode.attrs.aggregate
+      }), m(Aggregates, {
+        data: seapig_statistics.object["hours"],
+        measure: vnode.attrs.measure
+      })), m('.col', m(vnode.attrs.chart, {
+        data: seapig_statistics.object["days"],
+        measure: vnode.attrs.measure,
+        aggregate: vnode.attrs.aggregate
+      }), m(Aggregates, {
+        data: seapig_statistics.object["days"],
+        measure: vnode.attrs.measure
+      })));
+    }
+  };
+
+  Aggregates = {
+    view: function(vnode) {
+      var log;
+      if (log = vnode.attrs.data.entities[vnode.attrs.measure]) {
+        return m('', {
+          style: {
+            "margin-left": '50px'
+          }
+        }, _.find(_.pairs(log.metrics), function(metric) {
+          return metric[1].show && log[metric[0]] && (_.last(log[metric[0]]) != null);
+        }) != null ? [m('span', 'Last ' + vnode.attrs.data.seconds + 's time slot: '), (log.last != null) && (_.last(log.last) != null) ? m('span', m.trust(" last&nbsp;value&nbsp;=&nbsp;" + _.last(log.last))) : void 0, (log.count != null) && (_.last(log.count) != null) ? m('span', m.trust(" count&nbsp;=&nbsp;" + _.last(log.count))) : void 0, (log.sum != null) && (_.last(log.sum) != null) ? m('span', m.trust(" sum&nbsp;=&nbsp;" + _.last(log.sum))) : void 0, (log.average != null) && (_.last(log.average) != null) ? m('span', m.trust(" average&nbsp;=&nbsp;" + _.last(log.average))) : void 0, (log.maximum != null) && (_.last(log.maximum) != null) ? m('span', m.trust(" maximum&nbsp;=&nbsp;" + _.last(log.maximum))) : void 0] : void 0);
+      }
+    }
+  };
+
+  Chart = {
+    view: function(vnode) {
+      return m('', {
+        style: {
+          position: 'relative',
+          height: '200px',
+          "margin-top": "50px"
+        }
+      }, m('canvas', {
+        style: {
+          position: 'absolute',
+          'background-color': 'black'
+        }
+      }), m('svg', {
+        style: {
+          position: 'absolute',
+          width: '100%',
+          height: '100%'
+        }
+      }, m('g.x-axis'), m('g.y-axis')), m('.chart-tooltip', {
+        style: {
+          position: 'absolute'
+        }
+      }));
+    },
+    oncreate: function(vnode) {
+      this.node = d3.select(vnode.dom);
+      this.color = function(i) {
+        return d3.interpolateViridis(Math.pow(i, 1.0 / 2.0));
+      };
+      return this.onbeforeupdate(vnode, null);
+    },
+    onbeforeupdate: function(vnode, old_vnode) {
+      var area_height, area_width, canvas, chart_height, chart_width, data, keep, margin_bottom, margin_left, seconds, timestamp, timestamp_left, timestamp_right, x, xAxis, x_scale;
+      timestamp = vnode.attrs.data.timestamp;
+      if (timestamp === this.last_drawn_at) {
+        return false;
+      }
+      this.last_drawn_at = timestamp;
+      data = vnode.attrs.data.entities[vnode.attrs.measure];
+      keep = vnode.attrs.data.keep;
+      seconds = vnode.attrs.data.seconds;
+      margin_left = 50;
+      margin_bottom = 20;
+      chart_height = this.node.node().getBoundingClientRect().height;
+      chart_width = this.node.node().getBoundingClientRect().width;
+      area_height = chart_height - margin_bottom;
+      area_width = chart_width - margin_left;
+      this.node.select("canvas").attr("height", area_height).attr("width", area_width).style("left", margin_left + "px");
+      timestamp_right = timestamp;
+      timestamp_left = timestamp_right - (keep * seconds);
+      x_scale = d3.scaleTime().domain([new Date(timestamp_left - seconds), new Date(timestamp_right)]).range([0, area_width - 1]);
+      xAxis = d3.axisBottom(x_scale);
+      this.node.select(".x-axis").attr("transform", "translate(" + margin_left + "," + area_height + ")").call(xAxis);
+      canvas = this.node.select("canvas").node().getContext("2d");
+      canvas.clearRect(0, 0, area_width, area_height);
+      if (data[vnode.attrs.aggregate].length > 0) {
+        canvas.fillStyle = this.color(0);
+        canvas.fillRect(x = x_scale(new Date(timestamp - seconds * data[vnode.attrs.aggregate].length)), 0, x_scale(new Date(timestamp)) - x, area_height);
+      }
+      this.node.select(".y-axis").attr("transform", "translate(" + margin_left + "," + 0. + ")");
+      if (data[vnode.attrs.aggregate].length > 0) {
+        this.draw(timestamp, data, keep, seconds, area_width, area_height, x_scale, canvas, vnode.attrs.aggregate);
+      }
+      return false;
+    }
+  };
+
+  SpectrumChart = _.extend({}, Chart, {
+    draw: function(timestamp, data, keep, seconds, area_width, area_height, x_scale, canvas) {
+      var bin, column, i, j, len, max_bin, max_count, max_of_bin, max_value, ref, results, t, width, x, y, yAxis, y_scale;
+      max_bin = _.max(_.map(data.histogram, function(column) {
+        return column.length;
+      })) + 1;
+      max_of_bin = (function() {
+        var j, ref, results;
+        results = [];
+        for (bin = j = 0, ref = max_bin; 0 <= ref ? j <= ref : j >= ref; bin = 0 <= ref ? ++j : --j) {
+          results.push(Math.pow(10.0, bin * 1.0 / data.metrics.histogram.multiplier));
+        }
+        return results;
+      })();
+      max_count = _.max(_.map(data.histogram, function(column) {
+        return _.max(column);
+      }));
+      max_value = max_of_bin[max_bin];
+      if (max_value < 0.1) {
+        max_value = 1;
+      }
+      y_scale = d3.scaleLog().domain([max_value, 1]).range([0, area_height]);
+      yAxis = d3.axisLeft(y_scale).tickSizeOuter([10]).ticks(3).tickFormat(d3.format("2.0s"));
+      this.node.select(".y-axis").call(yAxis);
+      ref = data.histogram;
+      results = [];
+      for (t = j = 0, len = ref.length; j < len; t = ++j) {
+        column = ref[t];
+        x = x_scale(new Date(timestamp - seconds * (data.histogram.length - t)));
+        width = x_scale(new Date(timestamp - seconds * (data.histogram.length - t - 1))) - x + 1;
+        results.push((function() {
+          var k, ref1, results1;
+          results1 = [];
+          for (i = k = 0, ref1 = max_bin; 0 <= ref1 ? k <= ref1 : k >= ref1; i = 0 <= ref1 ? ++k : --k) {
+            if (column[i] > 0) {
+              canvas.fillStyle = this.color((column[i] || 0) * 1.0 / max_count);
+              results1.push(canvas.fillRect(x, y = y_scale(max_of_bin[i]), width, y_scale(max_of_bin[i - 1]) - y + 1));
+            } else {
+              results1.push(void 0);
+            }
+          }
+          return results1;
+        }).call(this));
+      }
+      return results;
+    }
+  });
+
+  BarChart = _.extend({}, Chart, {
+    draw: function(timestamp, data, keep, seconds, area_width, area_height, x_scale, canvas, aggregate) {
+      var column, j, len, max_count, ref, results, t, x, y, yAxis, y_scale;
+      max_count = _.max(data[aggregate]);
+      y_scale = d3.scaleLinear().domain([max_count, 0]).range([0, area_height]);
+      yAxis = d3.axisLeft(y_scale).tickSizeOuter([10]).tickFormat(d3.format(".2s")).ticks([7]);
+      this.node.select(".y-axis").call(yAxis);
+      canvas.fillStyle = this.color(0.5);
+      ref = data[aggregate];
+      results = [];
+      for (t = j = 0, len = ref.length; j < len; t = ++j) {
+        column = ref[t];
+        results.push(canvas.fillRect(x = x_scale(new Date(timestamp - seconds * (data[aggregate].length - t))), y = y_scale(column), x_scale(new Date(timestamp - seconds * (data[aggregate].length - t - 1))) - x + 1, y_scale(0) - y - 1));
+      }
+      return results;
+    }
+  });
+
+  $(document).ready((function(_this) {
+    return function() {
+      var connect, disconnect;
+      connect = function(uri) {
+        if (_this.seapig_client != null) {
+          return;
+        }
+        _this.seapig_client = new SeapigClient(uri, {
+          name: 'web-viewer',
+          debug: true
+        }).onstatuschange(function(pig_client) {
+          return m.redraw();
+        });
+        _this.seapig_statistics = _this.seapig_client.slave("SeapigServer::Statistics").onchange(function(pig_object) {
+          return m.redraw();
+        });
+        _this.seapig_connections = _this.seapig_client.slave("SeapigServer::Connections").onchange(function(pig_object) {
+          return m.redraw();
+        });
+        _this.seapig_objects = _this.seapig_client.slave("SeapigServer::Objects").onstatuschange(function(pig_object) {
+          return m.redraw();
+        });
+        return _this.seapig_object = null;
+      };
+      disconnect = function() {
+        if (_this.seapig_client == null) {
+          return;
+        }
+        _this.seapig_client.disconnect();
+        return _this.seapig_client = null;
+      };
+      return m.route(document.body, '/', {
+        "/": {
+          view: (function() {
+            return m(Connection);
+          }),
+          oninit: function(vnode) {
+            return disconnect();
+          }
+        },
+        "/:server/statistics": {
+          view: (function() {
+            return m(Layout, {
+              child: (function(_this) {
+                return function() {
+                  return m(Statistics);
+                };
+              })(this)
+            });
+          }),
+          oninit: function(vnode) {
+            return connect(vnode.attrs.server);
+          }
+        },
+        "/:server/connections": {
+          view: (function() {
+            return m(Layout, {
+              child: (function(_this) {
+                return function() {
+                  return m(Connections);
+                };
+              })(this)
+            });
+          }),
+          oninit: function(vnode) {
+            return connect(vnode.attrs.server);
+          }
+        },
+        "/:server/objects": {
+          view: (function() {
+            return m(Layout, {
+              child: (function(_this) {
+                return function() {
+                  return m(Objects);
+                };
+              })(this)
+            });
+          }),
+          oninit: function(vnode) {
+            return connect(vnode.attrs.server);
+          }
+        },
+        "/:server/observe": {
+          view: (function() {
+            return m(Layout, {
+              child: (function(_this) {
+                return function() {
+                  return m(Observe);
+                };
+              })(this)
+            });
+          }),
+          oninit: function(vnode) {
+            return connect(vnode.attrs.server);
+          }
+        },
+        "/:server/observe/:pattern": {
+          view: (function(vnode) {
+            return m(Layout, {
+              child: (function(_this) {
+                return function() {
+                  return m(Observe, {
+                    pattern: vnode.attrs.pattern
+                  });
+                };
+              })(this)
+            });
+          }),
+          oninit: function(vnode) {
+            return connect(vnode.attrs.server);
+          }
+        }
+      });
+    };
+  })(this));
+
+}).call(this);
+
+//# sourceMappingURL=seapig-viewer.js.map
+	</script>
+</head>
+<body>
+</body>
+</html>
