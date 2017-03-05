@@ -14,8 +14,8 @@ class @SeapigClient
 
         connect: ()->
 
+                @disconnect() if @socket?
                 @reconnect_on_close = true
-                return @socket.close() if @socket?
 
                 try
                         @socket = new WebSocket(@uri)
@@ -35,13 +35,16 @@ class @SeapigClient
                                 object.validate()
                         for id, object of @master_objects
                                 @socket.send(JSON.stringify(action: 'object-producer-register', pattern: id, "version-known": object.version))
+                                child.upload(0, {}, child.version, true) for child_id, child of object.children if id.indexOf('*') >= 0
 
-                @socket.onclose = ()=>
+                @socket.onclose = @socket_onclose = ()=>
                         console.log('Seapig connection closed') if @options.debug
                         @connected = false
                         @socket = undefined
                         object.invalidate() for id, object of @slave_objects
                         @onstatuschange_proc(@) if @onstatuschange_proc?
+                        clearTimeout(@reconnection_timer) if @reconnection_timer?
+                        @reconnection_timer = null
                         @reconnection_timer = setTimeout((=> @reconnection_timer = undefined; @connect()), 2000) if @reconnect_on_close
 
                 @socket.onerror = (error)=>
@@ -70,9 +73,13 @@ class @SeapigClient
 
         disconnect: ()->
                 @reconnect_on_close = false
-                clearTimeout(@reconnection_timer) if @reconnection_timer?
-                @socket.close() if @socket?
-
+                if @reconnection_timer?
+                        clearTimeout(@reconnection_timer)
+                        @reconnection_timer = null
+                if @socket?
+                        @socket.onclose = null
+                        @socket.close()
+                        @socket_onclose()
 
 
         onstatuschange: (proc)->
@@ -111,6 +118,8 @@ class SeapigObject
                 @id = id
                 @destroyed = false
                 @object = {}
+                @ondestroy_proc = undefined
+                @onstatuschange_proc = undefined
                 @initialized = !!options.object
                 _.extend(@object, options.object) if options.object?
 
@@ -236,7 +245,7 @@ class SeapigMasterObject extends SeapigObject
 
         upload: (version_old, data_old, version_new, data_new)->
                 if @client.connected
-                        if version_old == 0 or data_new == false
+                        if version_old == 0 or data_new == false or data_new == true
                                 @client.socket.send JSON.stringify(id: @id, action: 'object-patch', "version-new": version_new, value: data_new)
                         else
                                 diff = jsonpatch.compare(data_old, data_new)
@@ -256,7 +265,7 @@ class SeapigWildcardSlaveObject extends SeapigSlaveObject
 
         patch: (message)->
                 if not @children[message['id']]?
-                        @children[message['id']] = new SeapigSlaveObject(@client, message['id'], {}).onchange(@onchange_proc).onstatuschange(@onstatuschange_proc)
+                        @children[message['id']] = new SeapigSlaveObject(@client, message['id'], {}).onchange(@onchange_proc).onstatuschange(@onstatuschange_proc).ondestroy(@ondestroy_proc)
                         @object[message['id']] = @children[message['id']].object
                 @children[message['id']].patch(message)
 

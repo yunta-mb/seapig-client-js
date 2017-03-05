@@ -21,10 +21,10 @@
 
     SeapigClient.prototype.connect = function() {
       var error, error1;
-      this.reconnect_on_close = true;
       if (this.socket != null) {
-        return this.socket.close();
+        this.disconnect();
       }
+      this.reconnect_on_close = true;
       try {
         this.socket = new WebSocket(this.uri);
       } catch (error1) {
@@ -40,7 +40,7 @@
       }
       this.socket.onopen = (function(_this) {
         return function() {
-          var id, object, ref, ref1, results;
+          var child, child_id, id, object, ref, ref1, results;
           if (_this.options.debug) {
             console.log('Connected to seapig server');
           }
@@ -67,16 +67,30 @@
           results = [];
           for (id in ref1) {
             object = ref1[id];
-            results.push(_this.socket.send(JSON.stringify({
+            _this.socket.send(JSON.stringify({
               action: 'object-producer-register',
               pattern: id,
               "version-known": object.version
-            })));
+            }));
+            if (id.indexOf('*') >= 0) {
+              results.push((function() {
+                var ref2, results1;
+                ref2 = object.children;
+                results1 = [];
+                for (child_id in ref2) {
+                  child = ref2[child_id];
+                  results1.push(child.upload(0, {}, child.version, true));
+                }
+                return results1;
+              })());
+            } else {
+              results.push(void 0);
+            }
           }
           return results;
         };
       })(this);
-      this.socket.onclose = (function(_this) {
+      this.socket.onclose = this.socket_onclose = (function(_this) {
         return function() {
           var id, object, ref;
           if (_this.options.debug) {
@@ -92,6 +106,10 @@
           if (_this.onstatuschange_proc != null) {
             _this.onstatuschange_proc(_this);
           }
+          if (_this.reconnection_timer != null) {
+            clearTimeout(_this.reconnection_timer);
+          }
+          _this.reconnection_timer = null;
           if (_this.reconnect_on_close) {
             return _this.reconnection_timer = setTimeout((function() {
               _this.reconnection_timer = void 0;
@@ -166,9 +184,12 @@
       this.reconnect_on_close = false;
       if (this.reconnection_timer != null) {
         clearTimeout(this.reconnection_timer);
+        this.reconnection_timer = null;
       }
       if (this.socket != null) {
-        return this.socket.close();
+        this.socket.onclose = null;
+        this.socket.close();
+        return this.socket_onclose();
       }
     };
 
@@ -241,6 +262,8 @@
       this.id = id;
       this.destroyed = false;
       this.object = {};
+      this.ondestroy_proc = void 0;
+      this.onstatuschange_proc = void 0;
       this.initialized = !!options.object;
       if (options.object != null) {
         _.extend(this.object, options.object);
@@ -415,7 +438,7 @@
     SeapigMasterObject.prototype.upload = function(version_old, data_old, version_new, data_new) {
       var diff;
       if (this.client.connected) {
-        if (version_old === 0 || data_new === false) {
+        if (version_old === 0 || data_new === false || data_new === true) {
           this.client.socket.send(JSON.stringify({
             id: this.id,
             action: 'object-patch',
@@ -459,7 +482,7 @@
 
     SeapigWildcardSlaveObject.prototype.patch = function(message) {
       if (this.children[message['id']] == null) {
-        this.children[message['id']] = new SeapigSlaveObject(this.client, message['id'], {}).onchange(this.onchange_proc).onstatuschange(this.onstatuschange_proc);
+        this.children[message['id']] = new SeapigSlaveObject(this.client, message['id'], {}).onchange(this.onchange_proc).onstatuschange(this.onstatuschange_proc).ondestroy(this.ondestroy_proc);
         this.object[message['id']] = this.children[message['id']].object;
       }
       return this.children[message['id']].patch(message);
